@@ -249,7 +249,7 @@ export default function LoginScreen() {
           <View className="flex-row items-center gap-1.5">
             <LockIcon />
             <Text className="font-sans text-[10.5px] text-slate-400">
-              Your financial data is encrypted and never shared
+              Dont worry, your data is encrypted and private with me!
             </Text>
           </View>
         </View>
