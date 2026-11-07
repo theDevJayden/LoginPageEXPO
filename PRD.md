@@ -18,7 +18,7 @@
 * **Core Objectives:**
   * Track monthly income, expenses, and net monthly savings in real-time.
   * Provide dynamic visual feedback on spending breakdowns and budget usage on mobile screens.
-  * Allow complete flexibility through custom category creation.
+  * Classify expenses with a fixed set of categories, including "Others" for anything that does not fit.
   * Monitor active personal debts and payment deadlines.
 
 ---
@@ -44,13 +44,13 @@
 
 ---
 
-### Feature 2: Fast Expense & Income Tracker (With Custom Categories)
+### Feature 2: Fast Expense & Income Tracker
 * **Description:** A mobile-friendly bottom sheet or modal form and list view for recording and managing financial entries.
 * **Form Inputs (4 Primary Fields):**
   1. **Amount:** Positive numeric value ($) with numeric keyboard input.
   2. **Title:** Short description string (e.g., "Grocery Run").
   3. **Date:** Native date picker modal (`YYYY-MM-DD`).
-  4. **Category:** Single-select picker populated with system defaults and custom user categories.
+  4. **Category:** Single-select picker of the preset categories. Required for expenses; disabled for income (income has no category).
 * **Default Preset Categories:**
   * *Housing Bills*
   * *Medical*
@@ -58,16 +58,13 @@
   * *Transport*
   * *Leisure*
   * *Shopping*
-* **Custom Category Creation Engine:**
-  * A permanent **"+ Add Custom Category"** option at the bottom of the category selector.
-  * Selecting this triggers a native modal requiring:
-    * **Category Name:** String (e.g., "Pets", "Gym").
-    * **Category Color:** Color selector for chart rendering.
-  * Newly created categories immediately persist to state and Async Storage.
+  * *Others*
+* Users cannot create custom categories.
 * **Transaction List Requirements:**
   * Chronological sorting (newest first) using React Native `FlatList`.
   * Filter/search bar by Title or Category.
-  * Swipe-to-delete or tap-to-delete action per transaction item.
+  * Edit action per transaction item: opens the same form titled "Edit Entry", prefilled, with Save and Cancel.
+  * Delete from inside the Edit Entry form, after a "Delete this entry?" confirmation.
 
 ---
 
@@ -75,7 +72,7 @@
 * **Description:** Graphical summary of current month expenses grouped by category optimized for mobile layouts.
 * **Requirements:**
   * **Chart Type:** Interactive Donut or Pie chart rendered via `react-native-gifted-charts`.
-  * **Data Mapping:** Aggregates all current-month transactions of type `expense` across default and custom categories.
+  * **Data Mapping:** Aggregates all current-month transactions of type `expense` across all categories.
   * **Legend & Interactions:** Tap state displaying raw spending ($) and percentage (%) breakdown per category.
 
 ---
@@ -116,11 +113,11 @@
   "categories": [
     { "id": "cat-1", "name": "Housing Bills", "color": "#3B82F6", "isDefault": true },
     { "id": "cat-2", "name": "Medical", "color": "#EF4444", "isDefault": true },
-    { "id": "cat-3", "name": "Food and Beverages", "color": "#10B981", "isDefault": true },
+    { "id": "cat-3", "name": "Food & Beverages", "color": "#10B981", "isDefault": true },
     { "id": "cat-4", "name": "Transport", "color": "#F59E0B", "isDefault": true },
     { "id": "cat-5", "name": "Leisure", "color": "#8B5CF6", "isDefault": true },
     { "id": "cat-6", "name": "Shopping", "color": "#EC4899", "isDefault": true },
-    { "id": "cat-7", "name": "Pet Care", "color": "#14B8A6", "isDefault": false }
+    { "id": "cat-others", "name": "Others", "color": "#64748B", "isDefault": true }
   ],
   "transactions": [
     {
@@ -163,8 +160,7 @@ app/
 │   ├── analytics.tsx             # Category Breakdown Pie Chart
 │   └── debts.tsx                 # Debt Tracker
 ├── modal/
-│   ├── add-transaction.tsx       # Transaction Form Modal
-│   └── add-category.tsx          # Custom Category Creator Modal
+│   └── add-transaction.tsx       # Transaction Form Modal (new and edit)
 src/
 ├── components/
 │   ├── SummaryCards.tsx          # Income, Expense, Savings Cards
@@ -183,5 +179,5 @@ src/
 
 1. **Phase 1: Expo Setup & Store** — Initialize Expo app with NativeWind and setup Zustand store with `@react-native-async-storage/async-storage`.
 2. **Phase 2: Mobile Dashboard** — Build mobile UI for `SummaryCards` and `BudgetProgressBar`.
-3. **Phase 3: Fast Tracker & Modals** — Build transaction list (`FlatList`), input modals, and dynamic category creation.
+3. **Phase 3: Fast Tracker & Modals** — Build transaction list (`FlatList`), and the new / edit entry modal.
 4. **Phase 4: Mobile Analytics & Debt Module** — Implement `react-native-gifted-charts` for category breakdown and debt management screens.
