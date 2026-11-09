@@ -50,7 +50,7 @@ const QUICK_ACTIONS = [
     iconColor: '#00714e',
     iconBg: 'bg-secondary-container',
     title: 'Expense & Income',
-    subtitle: 'Transaction ledger & all records',
+    subtitle: 'Track your spending & earnings',
     href: '/expense-income',
   },
   {
@@ -58,7 +58,7 @@ const QUICK_ACTIONS = [
     iconColor: '#F97316',
     iconBg: 'bg-orange-100',
     title: 'Category Spending',
-    subtitle: 'Breakdown analytics & proportions',
+    subtitle: 'Analyze your spendings by category',
     href: '/category-spending',
   },
   {
@@ -66,7 +66,7 @@ const QUICK_ACTIONS = [
     iconColor: '#004f34',
     iconBg: 'bg-surface-container',
     title: 'Debt Tracker',
-    subtitle: 'Payoffs, amortization & loans',
+    subtitle: 'Loans, Credits, Paylater',
     href: null,
   },
 ] as const;
@@ -225,7 +225,7 @@ export default function HomeScreen() {
               </Text>
             </View>
             <View className="flex-1 items-center">
-              <Text className="font-jakarta-bold text-[10px] text-on-surface-variant">Spent Total</Text>
+              <Text className="font-jakarta-bold text-[10px] text-on-surface-variant">Budget Used</Text>
               <Text numberOfLines={1} className="mt-0.5 font-jakarta-bold text-[12px] text-primary">
                 {formatRupiah(totals.expenses)}
               </Text>

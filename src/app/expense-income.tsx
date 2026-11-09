@@ -60,7 +60,7 @@ export default function ExpenseIncomeScreen() {
     <View className="gap-4 pb-2 pt-1">
       <View>
         <Text className="font-jakarta-semibold text-[20px] leading-7 tracking-tight text-primary">Expense & Income</Text>
-        <Text className="font-sans text-[12px] text-on-surface-variant">Track, classify & manage cash flows</Text>
+        <Text className="font-sans text-[12px] text-on-surface-variant">Track your spendings and Earnings</Text>
       </View>
 
       <MonthlyOverviewCard income={totals.income} expenses={totals.expenses} savings={totals.savings} />
