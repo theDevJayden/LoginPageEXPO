@@ -8,7 +8,6 @@ type MonthlyOverviewCardProps = {
   savings: number;
 };
 
-// Shared by Home and Expense & Income. Totals are for the current month.
 export default function MonthlyOverviewCard({ income, expenses, savings }: MonthlyOverviewCardProps) {
   return (
     <View className="gap-4 rounded-[32px] bg-primary-container p-6 shadow-xl">

@@ -11,8 +11,6 @@ type TransactionRowProps = {
   onEdit?: () => void;
 };
 
-// Shared by Home > Recent Activity and the Expense & Income list.
-// Income: green up arrow on light green. Expense: red down arrow on light red, red amount and label.
 export default function TransactionRow({ type, title, meta, amount, onEdit }: TransactionRowProps) {
   const isIncome = type === 'income';
   const tone = isIncome ? 'text-secondary' : 'text-red-600';

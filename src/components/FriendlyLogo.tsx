@@ -2,7 +2,6 @@ import Svg, { Path } from 'react-native-svg';
 
 type FriendlyLogoProps = { size?: number };
 
-// Traced from assets/Images/friendly_icon.png. Same paths as assets/Images/friendly_icon.svg.
 export default function FriendlyLogo({ size = 24 }: FriendlyLogoProps) {
   return (
     <Svg width={size} height={size} viewBox="0 0 373 373" accessibilityLabel="Friendly logo">

@@ -7,9 +7,9 @@ export type Entry = {
   type: EntryType;
   amount: number;
   title: string;
-  date: string; // YYYY-MM-DD in local time
-  categoryId: string | null; // always null for income
-  createdAt: string; // ISO timestamp, used for the time label and ordering
+  date: string;
+  categoryId: string | null;
+  createdAt: string;
 };
 
 export type Category = {
@@ -21,7 +21,6 @@ export type Category = {
 
 export const OTHERS_CATEGORY_ID = 'cat-others';
 
-// PRD default categories (names and colours from the PRD data model), plus Others.
 export const DEFAULT_CATEGORIES: Category[] = [
   { id: 'cat-1', name: 'Housing Bills', color: '#3B82F6', icon: 'cottage' },
   { id: 'cat-2', name: 'Medical', color: '#EF4444', icon: 'medical_services' },
@@ -35,7 +34,6 @@ export const DEFAULT_CATEGORIES: Category[] = [
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const pad = (n: number) => String(n).padStart(2, '0');
 
-// Local date, not toISOString(): UTC would put late-night entries on the wrong day.
 export function toDateKey(date: Date): string {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 }
@@ -45,7 +43,6 @@ export function parseDateKey(key: string): Date {
   return new Date(year, month - 1, day);
 }
 
-// "22 Oct 2026"
 export function formatLongDate(key: string): string {
   const d = parseDateKey(key);
   return `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
@@ -58,14 +55,12 @@ export function getDayLabel(key: string, now: Date = new Date()): 'Today' | 'Yes
   return null;
 }
 
-// "Today • 22 Oct 2026", or "20 Oct 2026" for older days
 export function formatGroupHeader(key: string, now: Date = new Date()): string {
   const label = getDayLabel(key, now);
   const long = formatLongDate(key);
   return label ? `${label} • ${long}` : long;
 }
 
-// "Today", "Yesterday", or "20 Oct"
 export function formatShortDay(key: string, now: Date = new Date()): string {
   const label = getDayLabel(key, now);
   if (label) return label;
@@ -99,7 +94,6 @@ export function createId(prefix: string): string {
   return `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
-// Guards for data read back from AsyncStorage.
 export function isStoredEntry(value: unknown): value is Entry {
   const e = value as Entry;
   return (

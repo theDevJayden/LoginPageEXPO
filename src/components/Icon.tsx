@@ -1,7 +1,5 @@
 import Svg, { Path } from 'react-native-svg';
 
-// Mirrors assets/icons/*.svg (Material Symbols Outlined, Apache 2.0).
-// The .svg files are the source of truth: if one changes, update its entry here.
 const ICONS = {
   account_balance_wallet: {
     viewBox: '0 -960 960 960',

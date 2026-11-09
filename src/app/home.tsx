@@ -13,7 +13,8 @@ import {
 } from 'react-native';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Svg, { Circle } from 'react-native-svg';
+import BottomNav from '../components/BottomNav';
+import DonutChart from '../components/DonutChart';
 import FriendlyLogo from '../components/FriendlyLogo';
 import Icon from '../components/Icon';
 import MonthlyOverviewCard from '../components/MonthlyOverviewCard';
@@ -33,7 +34,6 @@ const STORAGE_KEY = 'budgetCap';
 const RECENT_COUNT = 3;
 
 const RING_RADIUS = 48;
-const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
 
 const LEVEL_STYLES: Record<
   BudgetLevel,
@@ -55,11 +55,11 @@ const QUICK_ACTIONS = [
   },
   {
     icon: 'pie_chart',
-    iconColor: '#003527',
-    iconBg: 'bg-surface-container-high',
+    iconColor: '#F97316',
+    iconBg: 'bg-orange-100',
     title: 'Category Spending',
     subtitle: 'Breakdown analytics & proportions',
-    href: null,
+    href: '/category-spending',
   },
   {
     icon: 'description',
@@ -71,14 +71,6 @@ const QUICK_ACTIONS = [
   },
 ] as const;
 
-// href null = current page or not built yet.
-const NAV_ITEMS = [
-  { icon: 'account_balance_wallet', label: 'Home', active: true, href: null },
-  { icon: 'monitoring', label: 'Analytics', active: false, href: null },
-  { icon: 'receipt_long', label: 'Transactions', active: false, href: '/expense-income' },
-  { icon: 'manage_accounts', label: 'Settings', active: false, href: null },
-] as const;
-
 export default function HomeScreen() {
   const { entries, getCategory, isLoaded } = useFinance();
   const totals = getMonthTotals(entries);
@@ -88,7 +80,6 @@ export default function HomeScreen() {
   const [capInput, setCapInput] = useState('');
   const [capError, setCapError] = useState('');
 
-  // Load the saved cap once on mount. Ignore anything that is not a positive number.
   useEffect(() => {
     let active = true;
     AsyncStorage.getItem(STORAGE_KEY)
@@ -143,7 +134,6 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-surface">
-      {/* Header */}
       <View className="h-16 flex-row items-center justify-between bg-surface px-4">
         <View className="flex-row items-center gap-2">
           <FriendlyLogo size={32} />
@@ -174,7 +164,6 @@ export default function HomeScreen() {
       <ScrollView className="flex-1" contentContainerClassName="gap-6 px-4 pb-8 pt-2">
         <MonthlyOverviewCard income={totals.income} expenses={totals.expenses} savings={totals.savings} />
 
-        {/* Budget card */}
         <View className="gap-4 rounded-[32px] bg-surface-container-lowest p-6 shadow-sm">
           <View className="flex-row items-center justify-between">
             <View>
@@ -197,22 +186,15 @@ export default function HomeScreen() {
 
           <View className="items-center py-1">
             <View className="h-44 w-44 items-center justify-center">
-              <Svg width={176} height={176} viewBox="0 0 120 120">
-                <Circle cx={60} cy={60} r={RING_RADIUS} fill="none" stroke="#e5eeff" strokeWidth={11} />
-                <Circle
-                  cx={60}
-                  cy={60}
-                  r={RING_RADIUS}
-                  fill="none"
-                  stroke={levelStyle.ring}
-                  strokeWidth={11}
-                  strokeLinecap="round"
-                  strokeDasharray={RING_CIRCUMFERENCE}
-                  strokeDashoffset={RING_CIRCUMFERENCE * (1 - summary.ringFill)}
-                  rotation={-90}
-                  origin="60, 60"
-                />
-              </Svg>
+              <DonutChart
+                size={176}
+                viewBoxSize={120}
+                radius={RING_RADIUS}
+                strokeWidth={11}
+                trackColor="#e5eeff"
+                lineCap="round"
+                segments={[{ value: summary.ringFill, color: levelStyle.ring }]}
+              />
               <View className="absolute bottom-0 left-0 right-0 top-0 items-center justify-center px-6">
                 <Text
                   numberOfLines={1}
@@ -260,7 +242,6 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        {/* Quick actions (only Expense & Income is wired up for now) */}
         <View className="gap-2">
           <Text className="px-1 font-jakarta-semibold text-[18px] leading-6 text-on-surface">Quick Actions</Text>
           {QUICK_ACTIONS.map((action) => (
@@ -290,7 +271,6 @@ export default function HomeScreen() {
           ))}
         </View>
 
-        {/* Recent activity */}
         <View className="gap-4 rounded-[32px] bg-surface-container-lowest p-6 shadow-sm">
           <View className="flex-row items-center justify-between">
             <View className="flex-row items-center gap-1.5">
@@ -332,27 +312,8 @@ export default function HomeScreen() {
         </View>
       </ScrollView>
 
-      {/* Bottom navigation (only Home and Transactions are wired up for now) */}
-      <View className="h-16 flex-row items-center justify-around bg-surface px-2">
-        {NAV_ITEMS.map((item) => (
-          <Pressable
-            key={item.label}
-            accessibilityRole="button"
-            accessibilityState={{ selected: item.active }}
-            onPress={item.href ? () => router.navigate(item.href) : undefined}
-            className="min-h-[44px] min-w-[56px] items-center justify-center gap-0.5"
-          >
-            <Icon name={item.icon} size={24} color={item.active ? '#003527' : '#404944'} />
-            <Text
-              className={`text-[10px] ${item.active ? 'font-jakarta-bold text-primary' : 'font-jakarta-bold text-on-surface-variant'}`}
-            >
-              {item.label}
-            </Text>
-          </Pressable>
-        ))}
-      </View>
+      <BottomNav />
 
-      {/* Edit cap modal */}
       <Modal visible={modalVisible} transparent animationType="slide" onRequestClose={closeModal}>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} className="flex-1 justify-end">
           <Pressable

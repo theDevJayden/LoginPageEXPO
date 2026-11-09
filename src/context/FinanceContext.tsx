@@ -11,14 +11,13 @@ import {
 } from '../utils/entries';
 
 const ENTRIES_KEY = 'entries';
-// Custom categories were removed. This key is only read to delete old saved data.
 const LEGACY_CATEGORIES_KEY = 'customCategories';
 const KNOWN_CATEGORY_IDS = new Set(DEFAULT_CATEGORIES.map((c) => c.id));
 
 type NewEntry = Omit<Entry, 'id' | 'createdAt'>;
 
 type FinanceContextValue = {
-  entries: Entry[]; // newest first
+  entries: Entry[];
   categories: Category[];
   isLoaded: boolean;
   addEntry: (entry: NewEntry) => void;
@@ -39,7 +38,6 @@ function readList<T>(raw: string | null, guard: (value: unknown) => value is T):
   }
 }
 
-// Income never has a category. Expenses that used a removed custom category become Others.
 function withKnownCategory(entry: Entry): Entry {
   if (entry.type === 'income') return entry.categoryId === null ? entry : { ...entry, categoryId: null };
   if (entry.categoryId !== null && KNOWN_CATEGORY_IDS.has(entry.categoryId)) return entry;
@@ -50,7 +48,6 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load once. Saving waits for this so an empty first render never overwrites stored data.
   useEffect(() => {
     let active = true;
     AsyncStorage.removeItem(LEGACY_CATEGORIES_KEY).catch(() => undefined);
@@ -80,7 +77,6 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
     setEntries((prev) => sortNewestFirst([created, ...prev]));
   }, []);
 
-  // Keeps id and createdAt, then re-sorts in case the date changed.
   const updateEntry = useCallback((id: string, entry: NewEntry) => {
     setEntries((prev) => sortNewestFirst(prev.map((e) => (e.id === id ? { ...e, ...entry } : e))));
   }, []);

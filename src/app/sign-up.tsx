@@ -6,7 +6,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
 import Icon from '../components/Icon';
 
-// Material Symbols Outlined paths used only on this screen.
 const PATHS = {
   mail: 'M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z',
   lock: 'M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm0-80h480v-400H240v400Zm240-120q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80ZM240-160v-400 400Z',
@@ -95,7 +94,6 @@ export default function SignUp() {
   const [hidePassword, setHidePassword] = useState(true);
   const [hideConfirm, setHideConfirm] = useState(true);
 
-  // Placeholder submission: no validation or request yet.
   const goToLogin = () => router.replace('/');
 
   return (
@@ -106,7 +104,6 @@ export default function SignUp() {
           contentContainerClassName="flex-grow gap-4 p-4 pb-6"
           keyboardShouldPersistTaps="handled"
         >
-          {/* Sign up form card */}
           <View className="gap-4 rounded-3xl bg-surface-container-lowest p-5 shadow-sm">
             <View className="gap-0.5">
               <View className="flex-row items-center justify-between">
@@ -174,7 +171,6 @@ export default function SignUp() {
             </View>
           </View>
 
-          {/* Footer */}
           <View className="flex-row items-center justify-center px-2">
             <Text className="font-sans text-[14px] text-[#707974]">Already have an account? </Text>
             <Pressable accessibilityRole="link" onPress={goToLogin} className="ml-1 flex-row items-center">

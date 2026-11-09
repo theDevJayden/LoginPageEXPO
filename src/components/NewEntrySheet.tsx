@@ -19,7 +19,7 @@ import { Entry, EntryType, formatLongDate, getDayLabel, parseDateKey, toDateKey 
 type NewEntrySheetProps = {
   visible: boolean;
   onClose: () => void;
-  entry?: Entry | null; // set = edit mode
+  entry?: Entry | null;
 };
 
 type FormErrors = { amount?: string; title?: string; category?: string };
@@ -38,7 +38,6 @@ export default function NewEntrySheet({ visible, onClose, entry = null }: NewEnt
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const [errors, setErrors] = useState<FormErrors>({});
 
-  // Every opening starts fresh: blank for a new entry, the entry's values when editing.
   useEffect(() => {
     if (!visible) return;
     setType(entry?.type ?? 'expense');
@@ -116,7 +115,6 @@ export default function NewEntrySheet({ visible, onClose, entry = null }: NewEnt
 
         <View className="rounded-t-[32px] bg-surface-container-lowest" style={{ maxHeight: '88%' }}>
           <ScrollView keyboardShouldPersistTaps="handled" contentContainerClassName="gap-4 p-4 pb-8">
-            {/* Handle and header */}
             <View className="items-center gap-2">
               <View className="h-1.5 w-12 rounded-full bg-slate-300" />
               <View className="w-full flex-row items-center justify-between pt-1">
@@ -134,7 +132,6 @@ export default function NewEntrySheet({ visible, onClose, entry = null }: NewEnt
               </View>
             </View>
 
-            {/* Expense / Income toggle */}
             <View className="flex-row gap-1 rounded-full bg-surface-container p-1">
               <Pressable
                 accessibilityRole="button"
@@ -160,7 +157,6 @@ export default function NewEntrySheet({ visible, onClose, entry = null }: NewEnt
               </Pressable>
             </View>
 
-            {/* Amount */}
             <View>
               <View
                 className={`items-center rounded-2xl bg-surface-container-low px-4 py-2 ${errors.amount ? 'border border-error' : 'border border-transparent'}`}
@@ -192,7 +188,6 @@ export default function NewEntrySheet({ visible, onClose, entry = null }: NewEnt
               ) : null}
             </View>
 
-            {/* Description and date */}
             <View className="gap-3">
               <View>
                 <View
@@ -251,7 +246,6 @@ export default function NewEntrySheet({ visible, onClose, entry = null }: NewEnt
               ) : null}
             </View>
 
-            {/* Category picker (expenses only) */}
             <View className="gap-2">
               <View className="flex-row items-center justify-between">
                 <Text className="font-jakarta-semibold text-[12px] text-on-surface">Select Category</Text>
@@ -305,7 +299,6 @@ export default function NewEntrySheet({ visible, onClose, entry = null }: NewEnt
               ) : null}
             </View>
 
-            {/* Save (new entry) or Cancel / Save / Delete (edit) */}
             {isEditing ? (
               <View className="gap-3">
                 <View className="flex-row gap-3">

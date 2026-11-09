@@ -104,7 +104,6 @@ export default function LoginScreen() {
         keyboardShouldPersistTaps="handled"
       >
         <View className="gap-4">
-          {/* Hero card */}
           <LinearGradient
             colors={['#06533e', '#044733', '#023123']}
             start={{ x: 0, y: 0 }}
@@ -147,7 +146,6 @@ export default function LoginScreen() {
             </View>
           </LinearGradient>
 
-          {/* Login form card */}
           <View className="rounded-2xl border border-slate-200 bg-white p-5">
             <View className="mb-4">
               <Text className="font-jakarta-bold text-base text-slate-900">Log in to your account</Text>
@@ -238,7 +236,6 @@ export default function LoginScreen() {
           </View>
         </View>
 
-        {/* Footer */}
         <View className="items-center gap-3 pb-2 pt-4">
           <View className="flex-row items-center">
             <Text className="font-sans text-xs text-slate-500">Don't have an account? </Text>

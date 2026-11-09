@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { router } from 'expo-router';
 import { Pressable, SectionList, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FriendlyLogo from '../components/FriendlyLogo';
+import BottomNav from '../components/BottomNav';
 import Icon from '../components/Icon';
 import MonthlyOverviewCard from '../components/MonthlyOverviewCard';
 import NewEntrySheet from '../components/NewEntrySheet';
@@ -19,14 +19,6 @@ const FILTERS: { key: Filter; label: string }[] = [
   { key: 'expense', label: 'Expenses' },
   { key: 'income', label: 'Income' },
 ];
-
-// href null = current page or not built yet.
-const NAV_ITEMS = [
-  { icon: 'account_balance_wallet', label: 'Home', active: false, href: '/home' },
-  { icon: 'monitoring', label: 'Analytics', active: false, href: null },
-  { icon: 'receipt_long', label: 'Transactions', active: true, href: null },
-  { icon: 'manage_accounts', label: 'Settings', active: false, href: null },
-] as const;
 
 type Section = { title: string; net: number; data: Entry[] };
 
@@ -44,7 +36,6 @@ export default function ExpenseIncomeScreen() {
 
   const totals = getMonthTotals(entries);
 
-  // Entries arrive newest first, so same-day entries are already next to each other.
   const sections = useMemo<Section[]>(() => {
     const q = query.trim().toLowerCase();
     const visible = entries.filter((entry) => {
@@ -89,7 +80,6 @@ export default function ExpenseIncomeScreen() {
               returnKeyType="search"
             />
           </View>
-          {/* Filter options are out of scope: this button does nothing yet. */}
           <Pressable
             accessibilityRole="button"
             accessibilityLabel="Toggle filters"
@@ -139,7 +129,6 @@ export default function ExpenseIncomeScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-surface">
-      {/* Header */}
       <View className="h-16 flex-row items-center justify-between bg-surface px-4">
         <View className="flex-row items-center gap-2">
           <FriendlyLogo size={32} />
@@ -216,23 +205,7 @@ export default function ExpenseIncomeScreen() {
         </View>
       </View>
 
-      {/* Bottom navigation (only Home and Transactions are wired up for now) */}
-      <View className="h-16 flex-row items-center justify-around bg-surface px-2">
-        {NAV_ITEMS.map((item) => (
-          <Pressable
-            key={item.label}
-            accessibilityRole="button"
-            accessibilityState={{ selected: item.active }}
-            onPress={item.href ? () => router.navigate(item.href) : undefined}
-            className="min-h-[44px] min-w-[56px] items-center justify-center gap-0.5"
-          >
-            <Icon name={item.icon} size={24} color={item.active ? '#003527' : '#404944'} />
-            <Text className={`font-jakarta-bold text-[10px] ${item.active ? 'text-primary' : 'text-on-surface-variant'}`}>
-              {item.label}
-            </Text>
-          </Pressable>
-        ))}
-      </View>
+      <BottomNav />
 
       <NewEntrySheet visible={sheetVisible} entry={editingEntry} onClose={() => setSheetVisible(false)} />
       <StatusBar style="dark" />
