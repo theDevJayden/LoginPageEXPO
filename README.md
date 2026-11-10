@@ -87,9 +87,34 @@ Mahasiswa, orang baru bekerja, anak kos yang sudah harus mulai mandiri memikirka
 - **Logo pada Tombol** : Logo pada tombol di dalam aplikasi memiliki desain yang minimalis, untuk memberikan kesan bahwa aplikasi nya simpel dan modern, serta sebagai petunjuk agar pengguna tahu kegunaan tombol.
 - **Donut Chart** : Digunakan karena desainnya yang memungkinkan untuk melihat persentase dengan visualisasi yang lebih enak dan terlihat.
 
+## Cara menjalankan aplikasi
+
+1. **Instalasi Library / Dependensi:**
+   Jalankan perintah berikut untuk mengunduh semua library yang diperlukan (Expo, Expo Router, NativeWind, AsyncStorage, dll):
+   ```bash
+   npm install
+   ```
+
+2. **Jalankan Aplikasi:**
+   Ketik perintah berikut untuk menyalakan development server Expo:
+   ```bash
+   npx expo start
+   ```
+   * Scan QR Code lewat aplikasi **Expo Go** di HP (Android/iOS), atau tekan `a` untuk Android Emulator / `w` untuk Browser Web.
+
 ## Rencana Lanjutan
 
 - Menambahkan firebase sebagai database aplikasi (Untuk sekarang data masih tersimpan dalam asyncstorage (lokal))
 - Validasi input pada register.
 - Tombol logout.
 - Fitur debt tracker.
+
+## Video Demo
+https://drive.google.com/file/d/1YsUDL8gUDNxvSHSeJ0_Cqu5OqaTGCHeb/view?usp=sharing 
+
+## Foto Produk
+![1](https://drive.google.com/file/d/1qMjjv6GjgatOMtptxx0m3StfJch3umFa/view?usp=drive_link)
+![2](https://drive.google.com/file/d/15MWhjVLylLib93SU5bR5ylnKDBsuL8ZD/view?usp=drive_link)
+![3](https://drive.google.com/file/d/1DKJo75kGkOJNsOC3AFVXjys6x93m8c7b/view?usp=drive_link)
+![4](https://drive.google.com/file/d/1Mty5DpYG2697-MhOqdpwHX54lrKswGYv/view?usp=drive_link)
+![5](https://drive.google.com/file/d/1XAQjsim5800BfsRQekCT_Xz7DAAkuXka/view?usp=drive_link)
