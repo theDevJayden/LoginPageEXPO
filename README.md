@@ -113,8 +113,8 @@ Mahasiswa, orang baru bekerja, anak kos yang sudah harus mulai mandiri memikirka
 https://drive.google.com/file/d/1YsUDL8gUDNxvSHSeJ0_Cqu5OqaTGCHeb/view?usp=sharing 
 
 ## Foto Produk
-![1](docs\Product\1.jpeg)
-![2](docs\Product\2.jpeg)
-![3](docs\Product\3.jpeg)
-![4](docs\Product\4.jpeg)
-![5](docs\Product\5.jpeg)
+![1](docs/Product/1.jpeg)
+![2](docs/Product/2.jpeg)
+![3](docs/Product/3.jpeg)
+![4](docs/Product/4.jpeg)
+![5](docs/Product/5.jpeg)
